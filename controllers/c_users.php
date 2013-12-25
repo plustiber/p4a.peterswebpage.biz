@@ -21,8 +21,10 @@ class users_controller extends base_controller {
         # CSS/JS includes
         $client_files_head = Array(
             "/css/error.css",
-            "/js/jquery-1.10.2.min.js",
-            "/js/jstz-1.0.4.min.js");
+            "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js",
+            #"/js/jquery-1.10.2.min.js",
+            "//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js");
+            #"/js/jstz-1.0.4.min.js");
         $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
         # Render the view
