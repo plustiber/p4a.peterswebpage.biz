@@ -22,8 +22,13 @@ class users_controller extends base_controller {
         $client_files_head = Array(
             "/css/error.css",
             "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js",
+            "//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js",
             "//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js");
         $this->template->client_files_head = Utils::load_client_files($client_files_head);
+
+        $client_files_body = Array(
+           "/js/p4.js");
+        $this->template->client_files_body = Utils::load_client_files($client_files_body);
 
         # Render the view
         echo $this->template;
@@ -70,10 +75,6 @@ class users_controller extends base_controller {
             # Create an encrypted token via their email address and a random string
             $_POST['token']    = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
             
-            #echo "<pre>";
-            #print_r($_POST);
-            #echo "<pre>";
-            
             # Insert the information into the database
             DB::instance(DB_NAME)->insert_row('users', $_POST);
             
@@ -93,8 +94,15 @@ class users_controller extends base_controller {
         $this->template->content->error = $error;
 
         # CSS/JS includes
-        $client_files_head = Array("/css/error.css");
+        $client_files_head = Array(
+            "/css/error.css",
+            "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js",
+            "//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js");
         $this->template->client_files_head = Utils::load_client_files($client_files_head);
+
+        $client_files_body = Array(
+           "/js/p4.js");
+        $this->template->client_files_body = Utils::load_client_files($client_files_body);
 
         # Render the view
         echo $this->template;
@@ -222,10 +230,15 @@ class users_controller extends base_controller {
 
             # CSS/JS includes
             $client_files_head = Array(
-                "/js/jquery-1.10.2.min.js",
-                "/js/jstz-1.0.4.min.js",
-                "/css/error.css");
+                "/css/error.css",
+                "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js",
+                "//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js",
+                "//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js");
             $this->template->client_files_head = Utils::load_client_files($client_files_head);
+
+            $client_files_body = Array(
+               "/js/p4.js");
+            $this->template->client_files_body = Utils::load_client_files($client_files_body);
 
            # Render template
             echo $this->template;
@@ -244,10 +257,6 @@ class users_controller extends base_controller {
         # Encrypt the password
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
-        #echo "<pre>";
-        #print_r($_POST);
-        #echo "<pre>";
-        
         # If user entered a unique email, update information in the database
         if ($this->is_unique_email($_POST['email'])) {
             $where_condition = "WHERE user_id = '".$this->user->user_id."'";
@@ -258,7 +267,6 @@ class users_controller extends base_controller {
         } else {
             Router::redirect("/users/profile/error");
         }
-
     }
 
 } # end of class

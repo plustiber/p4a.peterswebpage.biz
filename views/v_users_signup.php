@@ -1,12 +1,12 @@
 <div class='profile'>
 	<h2>Sign Up</h2>
 
-	<form method='POST' action='/users/p_signup'>
+	<form method='POST' class='profileForm' action='/users/p_signup'>
 
-		First name *<br> <input type='text' name='first_name' size=50 required autofocus><br>
-		Last name *<br> <input type='text' name='last_name' size=50 required><br>
-		Email address *<br> <input type='text' name='email' size=50 required><br>
-		Password *<br> <input type='password' name='password' size=50 required><br>
+		First name *<br> <input type='text' name='first_name' size=50 autofocus><br>
+		Last name *<br> <input type='text' name='last_name' size=50><br>
+		Email address *<br> <input type='text' name='email' size=50><br>
+		Password *<br> <input type='password' name='password' size=50><br>
 		<input type='hidden' name='timezone'>
 
 	   	<script>
