@@ -21,10 +21,17 @@ $(".profileForm").validate({
 		},
 		password: {
 			required: true,
-			minlength: '5'
+			minlength: '5',
+			maxlength: '10'
 		},
 		location: {
 			maxlength: '25'
+		}
+	},
+	messages: {
+		password: {
+			minlength: 'Password must be 5-10 characters',
+			maxlength: 'Password must be 5-10 characters'
 		}
 	}
 });
