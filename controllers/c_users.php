@@ -81,7 +81,6 @@ class users_controller extends base_controller {
             # Send them to the login page
             Router::redirect('/users/login');
         }
-        
     }
 
     public function login($error = NULL) {
