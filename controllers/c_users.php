@@ -250,14 +250,38 @@ class users_controller extends base_controller {
 
     public function p_editprofile() {
         
-        # Update the last modiefied time
-        $_POST['modified']  = Time::now();
-
-        # Encrypt the password
-        $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-
-        # If user entered a unique email, update information in the database
+        # If user entered a unique email, update profile information in the database
         if ($this->is_unique_email($_POST['email'])) {
+            # Update the last modiefied time
+            $_POST['modified']  = Time::now();
+
+            # Encrypt the password
+            $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+
+            # If a file name is successfully specified in the form
+            if($_FILES["profile_pic"]["error"] == 0) {
+
+                # Set the filename to "/app_path/avatars_path/user_id.png" 
+                $avatar_upload = APP_PATH.AVATAR_PATH.$this->user->user_id.".png";
+    
+                # Move the temporary file to the avatars directory and
+                # save the name of the file in the database
+                if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $avatar_upload)) {
+                    $_POST['profile_pic'] = AVATAR_PATH.$this->user->user_id.".png";
+                }
+                else {
+                    echo "Error saving file to server";
+                }
+
+            # Otherwise, clear file name in the database and remove the actual
+            # file from the avatars directory
+            } else if($_FILES["profile_pic"]["error"] == 4){
+                $_POST['profile_pic'] = '';
+                if (file_exists(APP_PATH.$this->user->profile_pic)) {
+                    unlink(APP_PATH.$this->user->profile_pic);
+                }
+            }
+
             $where_condition = "WHERE user_id = '".$this->user->user_id."'";
             DB::instance(DB_NAME)->update_row('users', $_POST, $where_condition);
             Router::redirect("/users/viewprofile");

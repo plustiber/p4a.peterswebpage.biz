@@ -5,8 +5,17 @@
 		Name: <?=$user->first_name?> <?=$user->last_name?> <br>
 		Email address: <?=$user->email?> <br>
 
+	    <?php if($user->site != ""): ?>
+			Web Site: <?=$user->site?><br>
+	    <?php endif; ?>
+
 	    <?php if($user->location != ""): ?>
 			Location: <?=$user->location?><br>
+	    <?php endif; ?>
+
+	   	<?php if($user->profile_pic != ""): ?>
+			<br>
+			<img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>" width=200><br>
 	    <?php endif; ?>
 
 	    <br>

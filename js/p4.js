@@ -5,6 +5,11 @@ Project 4
 December 22, 2013 
 **************************************************/
 
+// Specify the rules for validation using the jQuery plugin Validate
+// Since the names of the fields used in the forms are consistent across views,
+// the same validation rules can be re-used by identifying its class to editProfile
+// These views include include signup, login and editProfile.  This approach has the
+// benefit of ensuring validation consistency across views
 $(".profileForm").validate({
 	rules: {
 		first_name: {
@@ -23,6 +28,9 @@ $(".profileForm").validate({
 			required: true,
 			minlength: '5',
 			maxlength: '10'
+		},
+		site: {
+			url: true
 		},
 		location: {
 			maxlength: '25'
